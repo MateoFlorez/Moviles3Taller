@@ -4,9 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Inmueble</title>
 </head>
 <body>
+
+    <div class="main_container">
+        <h1>INMUEBLE</h1>
+        <form>
+            <label for="id">Id del inmueble*</label><br>
+            <input type="text" id="id" name="id" autocomplete="off"><br>
+            <span id="mensid" style="color: red;"></span><br><br>
+            <label for="direccion">Dirección*</label><br>
+            <input type="text" id="direccion" name="direccion" autocomplete="off"><br>
+            <span id="mensdireccion" style="color: red;"></span><br><br>
+            <label for="telefono">Telefono*</label><br>
+            <input type="text" id="telefono" name="telefono" autocomplete="off"><br><br><br>
+            <label for="precio">Precio*</label><br>
+            <input type="number" id="precio" name="precio" autocomplete="off"><br>
+            <span id="mensprecio" style="color: red;"></span><br><br>
+            <label for="estado">Estado</label><br>
+            <input type="text" id="estado" name="estado" autocomplete="off"><br><br><br>
+            <button type="button" id="btnenviar">Enviar</button>
+            <button type="button" id="btnbuscar">Buscar</button>
+            <button type="button" id="btnlistar">Listar</button>
+        </form>
+    </div>
     
 
     <script>
