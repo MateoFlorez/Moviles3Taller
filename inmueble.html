@@ -12,15 +12,15 @@
     <div class="main_container">
         <h1>INMUEBLE</h1>
         <form>
-            <label for="id">Id del inmueble*</label><br>
+            <label for="id">Id del inmueble</label><br>
             <input type="text" id="id" name="id" autocomplete="off"><br>
             <span id="mensid" style="color: red;"></span><br><br>
-            <label for="direccion">Dirección*</label><br>
+            <label for="direccion">Dirección</label><br>
             <input type="text" id="direccion" name="direccion" autocomplete="off"><br>
             <span id="mensdireccion" style="color: red;"></span><br><br>
-            <label for="telefono">Telefono*</label><br>
+            <label for="telefono">Telefono</label><br>
             <input type="text" id="telefono" name="telefono" autocomplete="off"><br><br><br>
-            <label for="precio">Precio*</label><br>
+            <label for="precio">Precio</label><br>
             <input type="number" id="precio" name="precio" autocomplete="off"><br>
             <span id="mensprecio" style="color: red;"></span><br><br>
             <label for="estado">Estado</label><br>
@@ -29,7 +29,8 @@
             <button type="submit" id="btnenviar">Enviar</button>
             <button type="button" id="btnbuscar">Buscar</button>
             <button type="button" id="btnlistar">Listar</button>
-        </form>
+        </form><br>
+        <span id="datos" style="color: black;"></span>
     </div>
     
 
@@ -71,13 +72,13 @@
         }
     
         let inmuebles = [
-            {idinmueble:'1',direccion:'calle 1 # 1-1',telefono:'1111111111',precio:100000000,estado:'Disponible'},
+            {idinmueble:'1',direccion:'calle 1 # 1-1',telefono:'1111111111',precio:230000000,estado:'Disponible'},
             {idinmueble:'2',direccion:'calle 2 # 2-2',telefono:'2222222222',precio:150000000,estado:'No disponible'},
             {idinmueble:'3',direccion:'calle 3 # 3-3',telefono:'3333333333',precio:200000000,estado:'No disponible'},
             {idinmueble:'4',direccion:'calle 4 # 4-4',telefono:'4444444444',precio:250000000,estado:'Disponible'},
             {idinmueble:'5',direccion:'calle 5 # 5-5',telefono:'5555555555',precio:300000000,estado:'No disponible'},
             {idinmueble:'6',direccion:'calle 6 # 6-6',telefono:'6666666666',precio:350000000,estado:'No disponible'},
-            {idinmueble:'7',direccion:'calle 7 # 7-7',telefono:'7777777777',precio:400000000,estado:'Disponible'},
+            {idinmueble:'7',direccion:'calle 7 # 7-7',telefono:'7777777777',precio:280000000,estado:'Disponible'},
             {idinmueble:'8',direccion:'calle 8 # 8-8',telefono:'8888888888',precio:450000000,estado:'Disponible'},
             {idinmueble:'9',direccion:'calle 9 # 9-9',telefono:'9999999999',precio:500000000,estado:'No disponible'},
             {idinmueble:'10',direccion:'calle 10 # 10-10',telefono:'1234567890',precio:500000000,estado:'Disponible'}
@@ -105,25 +106,63 @@
                 alert('Inmueble enviado correctamente')
             }
         })
+
+        function buscarInmueble(){
+                
+            inmuebles.filter(function(inmueble){
+                if(idinmueble.value == inmueble.idinmueble){
+                    document.getElementById('direccion').value = inmueble.direccion
+                    document.getElementById('precio').value = inmueble.precio
+                    document.getElementById('telefono').value = inmueble.telefono
+                    document.getElementById('estado').value = inmueble.estado
+                    document.getElementById('mensaje').style.display = "none"
+                }
+                else {
+                    document.getElementById('mensaje').innerHTML = 'No hay información que mostrar'
+                }
+            })
+        }
     
         btnbuscar.addEventListener('click',()=>{
-          
-            function buscarInmueble(){
-                
-                inmuebles.filter(function(inmueble){
-                    if(idinmueble.value == inmueble.idinmueble){
-                        document.getElementById('direccion').value = inmueble.direccion
-                        document.getElementById('precio').value = inmueble.precio
-                        document.getElementById('telefono').value = inmueble.telefono
-                        document.getElementById('estado').value = inmueble.estado
-                        document.getElementById('mensaje').style.display = "none"
-                    }
-                    else {
-                        document.getElementById('mensaje').innerHTML = 'No hay información que mostrar'
-                    }
-                })
-            }
             buscarInmueble()
+        })
+
+        function listarInmuebles(datos){
+            return new Promise((resolve,reject)=>{
+                let mestado = true
+                if(mestado){
+                    resolve(datos)
+                }
+                else{
+                    reject('No hay información')
+                }
+            })
+        }
+
+        btnlistar.addEventListener('click',()=>{
+            listarInmuebles(inmuebles)
+            .then((data)=>{
+                let html = ""
+                // Recorrer el arreglo
+                html = "<table border='1'> <th>ID inmueble</th><th>Dirección</th><th>Telefono</th><th>Precio</th><th>Estado</th>"
+                
+                for (let i=0; i < data.length; i++){
+                    if (data[i].estado == 'Disponible' && data[i].precio > 200000000 && data[i].precio < 300000000){
+                    html += `<tr>
+                                <td>${data[i].idinmueble}</td>
+                                <td>${data[i].direccion}</td>
+                                <td>${data[i].telefono}</td>
+                                <td>${data[i].precio}</td>
+                                <td>${data[i].estado}</td>
+                            </tr>`
+                    }
+                }
+                html += "</table>"
+                document.getElementById('datos').innerHTML = html
+            })
+            .catch((error)=>{
+                document.getElementById('datos').innerHTML = error
+            })
         })
     </script>
 
