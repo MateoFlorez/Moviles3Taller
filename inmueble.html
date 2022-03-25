@@ -102,18 +102,20 @@
                 }
     
                 obtenerInmueble()
-                alert('Inmueble guardado correctamente')
+                alert('Inmueble enviado correctamente')
             }
         })
     
         btnbuscar.addEventListener('click',()=>{
           
             function buscarInmueble(){
-                let buscar = prompt('Id del producto')
+                
                 inmuebles.filter(function(inmueble){
-                    if(buscar.value == inmueble.idinmueble){
+                    if(idinmueble.value == inmueble.idinmueble){
                         document.getElementById('direccion').value = inmueble.direccion
                         document.getElementById('precio').value = inmueble.precio
+                        document.getElementById('telefono').value = inmueble.telefono
+                        document.getElementById('estado').value = inmueble.estado
                         document.getElementById('mensaje').style.display = "none"
                     }
                     else {
@@ -122,8 +124,8 @@
                 })
             }
             buscarInmueble()
-            })
-      </script>
+        })
+    </script>
 
 </body>
 </html>
