@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inmueble</title>
+</head>
+<body>
+    
+
+    <script>
+
+        let idinmueble = document.getElementById('id')
+        let direccion = document.getElementById('direccion')
+        let telefono = document.getElementById('telefono')
+        let precio = document.getElementById('precio')
+        let estado = document.getElementById('estado')
+        let mensid = document.getElementById('mensid')
+        let mensdir = document.getElementById('mensdireccion')
+        let mensprecio = document.getElementById('mensprecio')
+        let btnenviar = document.getElementById('btnenviar')
+        let btnbuscar = document.getElementById('btnbuscar')
+        let btnlistar = document.getElementById('btnlistar')
+    
+        // Mensajes
+        idinmueble.onfocus = () => {
+            mensid.innerHTML = '* Solo se aceptan números'
+        }
+        idinmueble.onblur = () => {
+             mensid.innerHTML = ''
+        }
+    
+        direccion.onfocus = () => {
+            mensdir.innerHTML = '* Campo obligatorio'
+        }
+        direccion.onblur = () => {
+            mensdir.innerHTML = ''
+        }
+    
+        precio.onfocus = () => {
+            mensprecio.innerHTML = '* Debe estar entre 100 y 500 millones'
+        }
+        precio.onblur = () => {
+            mensprecio.innerHTML = ''
+        }
+    
+        let inmuebles = [
+            {idinmueble:'1',direccion:'calle 1 # 1-1',telefono:'1111111111',precio:100000000,estado:'Disponible'},
+            {idinmueble:'2',direccion:'calle 2 # 2-2',telefono:'2222222222',precio:150000000,estado:'No disponible'},
+            {idinmueble:'3',direccion:'calle 3 # 3-3',telefono:'3333333333',precio:200000000,estado:'No disponible'},
+            {idinmueble:'4',direccion:'calle 4 # 4-4',telefono:'4444444444',precio:250000000,estado:'Disponible'},
+            {idinmueble:'5',direccion:'calle 5 # 5-5',telefono:'5555555555',precio:300000000,estado:'No disponible'},
+            {idinmueble:'6',direccion:'calle 6 # 6-6',telefono:'6666666666',precio:350000000,estado:'No disponible'},
+            {idinmueble:'7',direccion:'calle 7 # 7-7',telefono:'7777777777',precio:400000000,estado:'Disponible'},
+            {idinmueble:'8',direccion:'calle 8 # 8-8',telefono:'8888888888',precio:450000000,estado:'Disponible'},
+            {idinmueble:'9',direccion:'calle 9 # 9-9',telefono:'9999999999',precio:500000000,estado:'No disponible'},
+            {idinmueble:'10',direccion:'calle 10 # 10-10',telefono:'1234567890',precio:500000000,estado:'Disponible'}
+        ]
+    
+        /*function validarInmueble(){
+          return new Promise((resolve,reject)=>{
+            console.log('Validando inmueble, por favor espere')
+            setTimeout(()=>{
+              resolve(inmuebles)
+            },3000)
+          })
+        }
+    
+        async function obtenerInmueble(){
+          let miInmueble = await validarInmueble()
+          console.log(miInmueble)
+        }*/
+    
+        btnenviar.addEventListener('click',()=>{
+            if (idinmueble.value === '' || direccion.value === '' || telefono.value === '' || precio.value < 100000000 || precio.value > 500000000){
+                alert('Rellene los campos con las indicaciones establecidas')
+            }
+            else{
+                function validarInmueble(){
+                return new Promise((resolve,reject)=>{
+                console.log('Validando inmueble, por favor espere')
+                setTimeout(()=>{
+                    resolve(inmuebles)
+                },3000)
+                })
+            }
+                async function obtenerInmueble(){
+                let miInmueble = await validarInmueble()
+                console.log(miInmueble)
+                }
+    
+                obtenerInmueble()
+            }
+        })
+    
+        btnbuscar.addEventListener('click',()=>{
+          // function buscarInmueble(datos){
+          //   return new Promise((resolve,reject)=>{
+          //     let buscar = prompt('Id Inmueble:')
+          //     if(idinmueble.value){
+          //       resolve(datos)
+          //     }
+          //     else {
+          //       reject('No hay informacion para mostrar')
+          //     }
+          //   })
+          // }
+          // buscarInmueble(inmuebles)
+          //   .then((data)=>{
+          //     let inm = ''
+          //     for(let i = 0; i < data.length; i++){
+          //       document.getElementById('id').innerHTML = idinmueble.value
+          //     }
+          //   })
+          //   .catch((error)=>{
+          //     document.getElementById('id').innerHTML = error
+          //   })
+            function validarInmueble(){
+                return new Promise((resolve,reject)=>{
+                prompt('Ingrese Id Inmueble:')
+    
+                console.log('Buscando inmueble, por favor espere')
+                setTimeout(()=>{
+                    resolve(inmuebles)
+                },3000)
+                })
+            }
+    
+            async function obtenerInmueble(){
+                let miInmueble = await validarInmueble()
+                console.log(miInmueble)
+                switch (idinmueble){
+                    case '1':
+                        idinmueble.innerHTML = inmuebles[0].idinmueble
+                        break;
+                    default:
+                        alert('No hay datos para mostrar')
+                    }
+                }
+                obtenerInmueble()
+            })
+      </script>
+
+</body>
+</html>
